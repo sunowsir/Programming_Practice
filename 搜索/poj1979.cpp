@@ -19,13 +19,21 @@ int n,m,ans;
 bool book[maxn][maxn];
 
 int dfs(int x,int y){
+	//每调用一次dfs函数都记一下个数，调用几次就是成功搜索几次。
 	ans++;
+	//此次调用时传入的x和y作为此次搜索的中心点，此次搜索的方向都是以这个x和y为标志物，是该点的上下左右。
+	//把该点标记，表示已经搜索过。
 	book[x][y] = true;
 	for(int i=0;i<4;i++){
 		int dx,dy;
+		//x和y分别赋值上nx[i]和ny[i]dx和dy就变成了x和y的上下左右方向。
 		dx=x+nx[i];
 		dy=y+ny[i];
+		//1.判断该方向的点（此时的dx和dy）是不是还在地图中
+		//2.判断该方向上的点是不是'.'（不懂去看题目要干啥）
+		//3.判断该方向上的点搜没搜索过（用book[]来标记看第26行）
 		if(dx>=0 && dx<m && dy>=0 && dy<n && mp[dx][dy]=='.' && !book[dx][dy])
+			//如果这些条件都符合，把该方向上的点作为中心点，调用dfs。
 			dfs(dx,dy);
 	}
 	return ans;
