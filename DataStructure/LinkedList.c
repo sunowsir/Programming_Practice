@@ -46,6 +46,44 @@ LinkedList insert(LinkedList head, Node *node, int index) {
     return head;
 }
 
+LinkedList removeNthFromEnd(LinkedList head, int n) {
+    Node *current_node = head;
+    int N = 0;
+    while(current_node != NULL) {
+        current_node = current_node->next;
+        N++;
+        printf("N = %d\n", N);
+    }
+    current_node = head;
+    int count  = 0;
+    printf("n(first) = %d\n", n);
+    n = N - n;
+    printf("n(last) = %d\n", n);
+    if(head == NULL) {
+        printf("Filed\n");
+        return head;
+    }
+    if(n == 0) {
+        head = head->next;
+        free(current_node);
+        printf("success\n");
+        return head;
+    }
+    while(current_node->next != NULL && count < n - 1) {
+        current_node = current_node->next;
+        count++;
+    }
+    if(count == n - 1 && current_node->next != NULL) {
+        Node *delete_node = current_node->next;
+        current_node->next = delete_node->next;
+        free(delete_node);
+        printf("success\n");
+        return head;
+    }
+    printf("success\n");
+    return head;
+}
+
 LinkedList reverse(LinkedList head) {
     if(head == NULL) {
         printf("failed\n");
@@ -62,6 +100,20 @@ LinkedList reverse(LinkedList head) {
     }
     printf("success\n");
     return head;
+}
+LinkedList swapPairs(LinkedList head) {
+    Node *current_node = head;
+    while(current_node->next != NULL) {
+        Node *next_node = current_node->next;
+        int tmp = 0;
+        tmp = current_node->data;
+        current_node->data = next_node->data;
+        next_node->data = tmp;
+        current_node = next_node->next;
+            
+    }
+    return head;
+
 }
 
 LinkedList delete_list(LinkedList head, int index) {
@@ -125,34 +177,33 @@ int main() {
     LinkedList list = NULL;
     int n, value, loc, t, N;
     N = 1;
-    //è¾“å…¥æ“ä½œæ•°
-    printf("è¾“å…¥æ“ä½œæ•°ï¼š\n");
+    printf("ÇëÊäÈë²Ù×÷Êı£»\n");
     scanf("%d", &n);
     while(n--) {
-        printf("ç¬¬%dæ¬¡æ“ä½œï¼š\n", N++);
-        printf("è¾“å…¥æ“ä½œç±»å‹ï¼š\n");
+        printf("µÚ%d´Î²Ù×÷\n", N++);
+        printf("ÇëÊäÈë²Ù×÷ÀàĞÍ£»\n");
         scanf("%d", &t);
         Node *node = (Node *)malloc(sizeof(Node));
         if(t == 1) {
-            printf("æ’å…¥ï¼š\n");
-            printf("è¾“å…¥loc å’Œ valueï¼š\n");
+            printf("²åÈë£»\n");
+            printf("ÇëÊäÈëloc ºÍvalue Öµ\n");
             scanf("%d%d", &loc, &value);
             node->next = NULL;
             node->data = value;
             list = insert(list, node, loc);
         }
         if(t == 2) {
-            printf("åˆ é™¤ï¼š\n");
-            printf("è¾“å…¥locï¼š\n");
+            printf("É¾³ı£»\n");
+            printf("ÇëÊäÈëlocÖµ£»\n");
             scanf("%d", &loc);
             list = delete_list(list, loc);
         }
         if(t == 3) {
-            printf("åè½¬ï¼š\n");
+            printf("·´×ª£º\n");
             list = reverse(list);
         }
         if(t == 4) {
-            printf("éå†ï¼š\n");
+            printf("±éÀú£º\n");
             output(list);
         }
     }
