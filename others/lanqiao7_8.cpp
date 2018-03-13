@@ -13,9 +13,9 @@
 using namespace std;
 
 void init(int *n, bool mpt[]){
-    for(int i = 0; i * i < *n; i++) {
-        for(int j = 0; j * j < *n; j++) {
-            if(i * i + j * j) {
+    for(int i = 0; i * i <= *n; i++) {
+        for(int j = 0; j * j <= *n; j++) {
+            if(i * i + j * j <= *n) {
                 mpt[i * i + j * j] = true;
             }
         }
@@ -24,12 +24,12 @@ void init(int *n, bool mpt[]){
 
 void traverse(int *n, bool mpt[]) {
 
-    for(int i = 0; i * i < *n; i++) {
-        for(int j = 0; j * j < *n; j++) {
+    for(int i = 0; i * i <= *n; i++) {
+        for(int j = 0; j * j <= *n; j++) {
             if(!mpt[*n - i * i - j * j]) {
                 continue;
             }
-            for(int k = 0; k * k < *n; k++) {
+            for(int k = 0; k * k <= *n; k++) {
                 int temp = *n - i * i - j * j - k * k;
                 double l = sqrt((double)temp);
                 if(l == (int)l) {
